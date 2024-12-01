@@ -1,0 +1,21 @@
+.youtube-container-full {
+    max-width: 100%; /* Ensures the container fits within the parent width */
+  }
+  
+  .youtube-player-wrapper {
+    position: relative;
+    width: 100%; /* Full width of the container */
+    padding-top: 56.25%; /* Aspect ratio: 9/16 = 56.25% */
+    overflow: hidden;
+    background: #000; /* Optional: Prevents white space around video */
+  }
+  
+  .youtube-player-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width of the wrapper */
+    height: 100%; /* Full height of the wrapper */
+    border: none; /* Removes iframe border */
+  }
+  

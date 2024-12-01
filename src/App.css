@@ -1,9 +1,24 @@
+* {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box; /* Include padding and border in width/height */
+  border-radius: 3px;
+}
+
+body {
+  background-color: #3a3a3a;
+}
+/* Timestamp Bar  */
 .timestampbar {
   background-color: #f0ebd8;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
+.seek{
+  display: flex;
+  flex-direction: column;
+}
 .actions {
   background-color: #796418;
   display: flex;
@@ -22,9 +37,29 @@
 }
 .default-field {
   display: flex;
-  justify-content:space-between;
+  
 }
 .default-parameters {
   display: flex;
 }
 
+.selected-button {
+  background-color: rgb(151, 18, 18);
+  color: rgb(255, 255, 255);
+}
+
+
+
+
+.divider {
+  width: 20px;
+  background-color: #0a0a0a;
+  height: 100vh;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition-duration: .2s;
+}
+
+.divider.divider:active{
+  background-color: #707070;
+}
