@@ -1,0 +1,9 @@
+.timestamp{
+    background-color: rgb(91, 148, 0);
+    border: 7px solid black;
+}
+
+.playing{
+    background-color: red;
+    color: aliceblue;
+}

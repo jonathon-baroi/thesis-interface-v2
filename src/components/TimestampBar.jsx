@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import Timestamp from "./Timestamp";
+import { v4 as uuidv4 } from "uuid";
 
 const TimestampBar = ({
   isPlaying,
@@ -8,8 +10,12 @@ const TimestampBar = ({
   pauseVideo,
   getCurrentTime,
 }) => {
+  const [timestamps, setTimestamps] = useState([
+    //{ emotion: "Neutral", gender: "Male", duration: 3 }
+  ]);
+
   const [currentTime, setCurrentTime] = useState(0);
-  const [seekArray, setSeekArray] = useState([-1, 1]);
+  const [seekArray, setSeekArray] = useState([1, 1]);
   const [defaultEmotion, setDefaultEmotion] = useState("Neutral");
   const [defaultDuration, setDefaultDuration] = useState(3);
   const [defaultGender, setDefaultGender] = useState("Male");
@@ -51,7 +57,7 @@ const TimestampBar = ({
   const seekLeft = (offset) => {
     if (playerRef.current) {
       const currentTime = playerRef.current.getCurrentTime();
-      playerRef.current.seekTo(currentTime + offset, true); // true to allow precise seeking
+      playerRef.current.seekTo(currentTime - offset, true); // true to allow precise seeking
     }
   };
   const seekRight = (offset) => {
@@ -61,16 +67,31 @@ const TimestampBar = ({
     }
   };
 
+  const addTimestamp = () => {
+    setTimestamps([
+      ...timestamps,
+      {
+        emotion: defaultEmotion,
+        gender: defaultGender,
+        duration: defaultDuration,
+        startTime: playerRef.current.getCurrentTime(),
+        id: uuidv4(),
+      },
+    ]);
+  };
+
   return (
     <>
+      {/* 
       <div>Emotion: {defaultEmotion}</div>
       <div>Duration: {defaultDuration}</div>
       <div>Gender: {defaultGender}</div>
       <div>TimeOffset: {defaultTimeOffset}</div>
+      */}
       <div className="timestampbar">
         <div className="actions">
           <div className="plus">
-            <button>+</button>
+            <button onClick={addTimestamp}>+</button>
           </div>
           <div className="youtube-controls">
             <div className="seek">
@@ -143,14 +164,18 @@ const TimestampBar = ({
             ></input>
           </div>
           <div className="default-field">
-            <h4>Add Time Offset(sec)</h4>
+            <h4>Negative Start Offset(sec)</h4>
             <input
               value={defaultTimeOffset}
-              onChange={(e) => setDefaultTimeOffset(Number(e.target.value))}
-              placeholder="Set Default Time Offset"
+              onChange={(e) => {
+                setDefaultTimeOffset(Number(e.target.value));
+                //console.log(e.target.value); // Check if negative values are logged
+              }}
+              placeholder="Negative Start Offset"
               type="number"
             ></input>
           </div>
+          {/**/}
           <button
             onClick={() => {
               setCurrentTime(getCurrentTime);
@@ -159,6 +184,21 @@ const TimestampBar = ({
             {formatTime(currentTime)}
           </button>
         </div>
+      </div>
+      <div>
+        {/*<div style={{ height: "200px" }}></div>*/}
+        <ul>
+          {timestamps.map((timestamp) => (
+            <li key={timestamp.id}>
+              <Timestamp
+                index={timestamps.indexOf(timestamp)} // Pass the index or timestamp.id
+                timestamps={timestamps}
+                setTimestamps={setTimestamps}
+                playerRef={playerRef}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

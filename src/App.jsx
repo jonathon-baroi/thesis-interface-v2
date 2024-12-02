@@ -43,7 +43,7 @@ function App() {
           />
         </Panel>
         <PanelResizeHandle className="divider" />
-        <Panel defaultSize={30} minSize={20}>
+        <Panel defaultSize={30} minSize={30}>
           <TimestampBar
             isPlaying={isPlaying}
             playerRef={playerRef}

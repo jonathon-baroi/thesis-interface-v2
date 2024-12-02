@@ -13,14 +13,18 @@ body {
   background-color: #f0ebd8;
   display: flex;
   flex-direction: column;
+  top: 0; /* Position the navbar at the top of the page */
+ 
+  width: 100%;
 }
 
 .seek{
   display: flex;
   flex-direction: column;
+  
 }
 .actions {
-  background-color: #796418;
+  background-color: #a09a83;
   display: flex;
   flex-direction: column;
   justify-content: center;
