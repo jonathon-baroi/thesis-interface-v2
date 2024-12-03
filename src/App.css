@@ -5,17 +5,39 @@
   border-radius: 3px;
 }
 
+.whole-timestamp {
+  display: flex;
+  flex-direction: column; /* Stack the children vertically */
+  height: 100vh; /* Make the container take up the full height of the viewport */
+}
+
 body {
   background-color: #3a3a3a;
+  height: 100vh;
+  overflow: hidden;
 }
 /* Timestamp Bar  */
+
 .timestampbar {
   background-color: #f0ebd8;
   display: flex;
   flex-direction: column;
-  top: 0; /* Position the navbar at the top of the page */
- 
-  width: 100%;
+  padding: 1em;
+
+}
+
+.timestamp-list {
+  list-style: none;
+  
+}
+
+.timestamp-container{
+  
+  background-color: #e0e0e0;
+  padding: 1em;
+  overflow: scroll;
+  height: 100vh;
+
 }
 
 .seek{

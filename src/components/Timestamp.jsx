@@ -1,6 +1,6 @@
 import React from "react";
 import "../timestamp.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Timestamp = ({ index, timestamps, setTimestamps, playerRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // State for the slider value
@@ -182,7 +182,14 @@ const Timestamp = ({ index, timestamps, setTimestamps, playerRef }) => {
         />
         <span>{max}</span>
       </div>
-      <button onClick={() => setSliderValue(0)}>Reset</button>
+      <button
+        onClick={() => {
+          setSliderValue(0);
+          setStartTime(onlyStartTime, 0);
+        }}
+      >
+        Reset
+      </button>
 
       <div className="slider-value">Current Value: {sliderValue}</div>
 

@@ -82,123 +82,125 @@ const TimestampBar = ({
 
   return (
     <>
-      {/* 
+      <div className="whole-timestamp">
+        {/* 
       <div>Emotion: {defaultEmotion}</div>
       <div>Duration: {defaultDuration}</div>
       <div>Gender: {defaultGender}</div>
       <div>TimeOffset: {defaultTimeOffset}</div>
       */}
-      <div className="timestampbar">
-        <div className="actions">
-          <div className="plus">
-            <button onClick={addTimestamp}>+</button>
-          </div>
-          <div className="youtube-controls">
-            <div className="seek">
-              <button onClick={() => seekLeft(seekArray[0])}>{"<-"}</button>
-              <input
-                onChange={(e) =>
-                  setSeekArray([Number(e.target.value), seekArray[1]])
-                }
-                type="number"
-                value={Number(seekArray[0])}
-              />
+        <div className="timestampbar">
+          <div className="actions">
+            <div className="plus">
+              <button onClick={addTimestamp}>+</button>
             </div>
+            <div className="youtube-controls">
+              <div className="seek">
+                <button onClick={() => seekLeft(seekArray[0])}>{"<-"}</button>
+                <input
+                  onChange={(e) =>
+                    setSeekArray([Number(e.target.value), seekArray[1]])
+                  }
+                  type="number"
+                  value={Number(seekArray[0])}
+                />
+              </div>
+              <button
+                onClick={() => {
+                  isPlaying ? pauseVideo() : playVideo();
+                }}
+              >
+                {isPlaying ? "Pause" : "Play"}
+              </button>
+              <div className="seek">
+                <button onClick={() => seekRight(seekArray[1])}>{"->"}</button>
+                <input
+                  onChange={(e) =>
+                    setSeekArray([seekArray[0], Number(e.target.value)])
+                  }
+                  type="number"
+                  value={Number(seekArray[1])}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="defaults">
+            <h1>Default Parameters</h1>
+            <div className="default-field">
+              <h4>Emotion</h4>
+              {emotionButtons.map((label, index) => (
+                <button
+                  className={
+                    selectedEmotionButton === index ? "selected-button" : ""
+                  }
+                  key={index}
+                  onClick={() => handleClickEmotion(index)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="default-field">
+              <h4>Gender</h4>
+              {genderButtons.map((label, index) => (
+                <button
+                  className={
+                    selectedGenderButton === index ? "selected-button" : ""
+                  }
+                  key={index}
+                  onClick={() => handleClickGender(index)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="default-field"></div>
+            <div className="default-field">
+              <h4>Duration(sec)</h4>
+              <input
+                value={defaultDuration}
+                onChange={(e) => setDefaultDuration(Number(e.target.value))}
+                placeholder="Set Default Duration"
+                type="number"
+              ></input>
+            </div>
+            <div className="default-field">
+              <h4>Negative Start Offset(sec)</h4>
+              <input
+                value={defaultTimeOffset}
+                onChange={(e) => {
+                  setDefaultTimeOffset(Number(e.target.value));
+                  //console.log(e.target.value); // Check if negative values are logged
+                }}
+                placeholder="Negative Start Offset"
+                type="number"
+              ></input>
+            </div>
+            {/**/}
             <button
               onClick={() => {
-                isPlaying ? pauseVideo() : playVideo();
+                setCurrentTime(getCurrentTime);
               }}
             >
-              {isPlaying ? "Pause" : "Play"}
+              {formatTime(currentTime)}
             </button>
-            <div className="seek">
-              <button onClick={() => seekRight(seekArray[1])}>{"->"}</button>
-              <input
-                onChange={(e) =>
-                  setSeekArray([seekArray[0], Number(e.target.value)])
-                }
-                type="number"
-                value={Number(seekArray[1])}
-              />
-            </div>
           </div>
         </div>
-        <div className="defaults">
-          <h1>Default Parameters</h1>
-          <div className="default-field">
-            <h4>Emotion</h4>
-            {emotionButtons.map((label, index) => (
-              <button
-                className={
-                  selectedEmotionButton === index ? "selected-button" : ""
-                }
-                key={index}
-                onClick={() => handleClickEmotion(index)}
-              >
-                {label}
-              </button>
+        <div className="timestamp-container">
+          {/*<div style={{ height: "200px" }}></div>*/}
+          <ul className="timestamp-list">
+            {timestamps.map((timestamp) => (
+              <li key={timestamp.id}>
+                <Timestamp
+                  index={timestamps.indexOf(timestamp)} // Pass the index or timestamp.id
+                  timestamps={timestamps}
+                  setTimestamps={setTimestamps}
+                  playerRef={playerRef}
+                />
+              </li>
             ))}
-          </div>
-          <div className="default-field">
-            <h4>Gender</h4>
-            {genderButtons.map((label, index) => (
-              <button
-                className={
-                  selectedGenderButton === index ? "selected-button" : ""
-                }
-                key={index}
-                onClick={() => handleClickGender(index)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <div className="default-field"></div>
-          <div className="default-field">
-            <h4>Duration(sec)</h4>
-            <input
-              value={defaultDuration}
-              onChange={(e) => setDefaultDuration(Number(e.target.value))}
-              placeholder="Set Default Duration"
-              type="number"
-            ></input>
-          </div>
-          <div className="default-field">
-            <h4>Negative Start Offset(sec)</h4>
-            <input
-              value={defaultTimeOffset}
-              onChange={(e) => {
-                setDefaultTimeOffset(Number(e.target.value));
-                //console.log(e.target.value); // Check if negative values are logged
-              }}
-              placeholder="Negative Start Offset"
-              type="number"
-            ></input>
-          </div>
-          {/**/}
-          <button
-            onClick={() => {
-              setCurrentTime(getCurrentTime);
-            }}
-          >
-            {formatTime(currentTime)}
-          </button>
+          </ul>
         </div>
-      </div>
-      <div>
-        {/*<div style={{ height: "200px" }}></div>*/}
-        <ul>
-          {timestamps.map((timestamp) => (
-            <li key={timestamp.id}>
-              <Timestamp
-                index={timestamps.indexOf(timestamp)} // Pass the index or timestamp.id
-                timestamps={timestamps}
-                setTimestamps={setTimestamps}
-                playerRef={playerRef}
-              />
-            </li>
-          ))}
-        </ul>
       </div>
     </>
   );
