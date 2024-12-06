@@ -2,33 +2,19 @@ import React, { useState } from "react";
 import YouTube from "react-youtube";
 import "../YouTubePlayer.css";
 
-const YouTubePlayer = ({ playerRef, setIsPlaying }) => {
-  const [videoId, setVideoId] = useState("dQw4w9WgXcQ"); // Default video ID
-
+const YouTubePlayer = ({
+  playerRef,
+  setIsPlaying,
+  setVideoUrl,
+  handleVideoChange,
+  inputUrl,
+  setInputURL,
+  videoId,
+}) => {
   const onPlayerReady = (event) => {
     console.log("Player is ready");
     playerRef.current = event.target;
     //event.target.pauseVideo();
-  };
-
-  const onPlayerStateChange = (event) => {
-    console.log("Player state changed:", event.data);
-    if (event.data === 1) setIsPlaying(true); // Playing
-    if (event.data === 2) setIsPlaying(false); // Paused
-  };
-
-  const handleVideoChange = () => {
-    const url = document.getElementById("videoUrl").value;
-    const extractedId = extractVideoId(url); // Extract the ID from the URL
-    if (extractedId) setVideoId(extractedId);
-    else alert("Invalid YouTube URL");
-  };
-
-  const extractVideoId = (url) => {
-    const regex =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
   };
 
   const opts = {
@@ -37,16 +23,36 @@ const YouTubePlayer = ({ playerRef, setIsPlaying }) => {
     },
   };
 
+  const onPlayerStateChange = (event) => {
+    //console.log("Player state changed:", event.data);
+    if (event.data === 1) setIsPlaying(true); // Playing
+    if (event.data === 2) setIsPlaying(false); // Paused
+  };
+
   return (
     <div className="youtube-container-full">
-      <h1>Enter The URL</h1>
+      <h1>Thesis Interface V2</h1>
       <div className="youtube-bar">
-        <input
-          id="videoUrl"
-          type="text"
-          defaultValue="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        />
-        <button onClick={handleVideoChange}>Load Video</button>
+        <div style={{ padding: "10px 50px", justifyContent: "space-between" }}>
+          <input
+            id="videoUrl"
+            type="text"
+            value={inputUrl}
+            onChange={(e) => {
+              setInputURL(e.target.value);
+            }}
+            style={{ width: "400px" }}
+          />
+
+          <div style={{ paddingLeft: "20px" }}>
+            <button
+              className="option-button"
+              onClick={handleVideoChange(inputUrl)}
+            >
+              Load Video
+            </button>
+          </div>
+        </div>
       </div>
       <div className="youtube-player-wrapper">
         <YouTube

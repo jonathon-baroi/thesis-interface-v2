@@ -131,86 +131,123 @@ const Timestamp = ({ index, timestamps, setTimestamps, playerRef }) => {
   };
 
   return (
-    <div className="timestamp">
-      <div>{index + 1}</div>
-      <h4>Emotion</h4>
-      {emotionButtons.map((label, index) => (
-        <button
-          className={selectedEmotionButton === index ? "selected-button" : ""}
-          key={index}
-          onClick={() => handleClickEmotion(index)}
-        >
-          {label}
-        </button>
-      ))}
-      <h4>Gender</h4>
-      {genderButtons.map((label, index) => (
-        <button
-          className={selectedGenderButton === index ? "selected-button" : ""}
-          key={index}
-          onClick={() => handleClickGender(index)}
-        >
-          {label}
-        </button>
-      ))}
-      <h4>Start Time</h4>
-      <input
-        type="number"
-        step="0.1" // Allows floating-point numbers up to two decimal places
-        onChange={(e) => {
-          const newOnlyStartTime = parseFloat(e.target.value) || 0;
-          setOnlyStartTime(newOnlyStartTime);
-          setStartTime(newOnlyStartTime, sliderValue);
-        }}
-        value={onlyStartTime}
-      />
-      <h4>Fine-Tune Start Time:</h4>
-      <div>
-        <span>{min}</span>
-        <input
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={sliderValue}
-          onChange={(e) => {
-            const newSliderValue = parseFloat(e.target.value);
-            setSliderValue(newSliderValue);
-            setStartTime(onlyStartTime, newSliderValue);
-          }}
-          className="neutral-slider"
-        />
-        <span>{max}</span>
+    <div className="timestamp padding10">
+      <div>{timestamps.length - index}</div>
+      <div className="flex-hor flex-end">
+        <div style={{ paddingBottom: "30px" }}>
+          <button
+            className="option-button delete-color"
+            onClick={deleteSelf}
+            style={{ backgroundColor: "#a80000" }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      <button
-        onClick={() => {
-          setSliderValue(0);
-          setStartTime(onlyStartTime, 0);
-        }}
-      >
-        Reset
-      </button>
+      <div className="flex-hor">
+        <div className="flex-ver">
+          <div className="flex-hor">
+            {emotionButtons.map((label, index) => (
+              <button
+                className={`option-button ${
+                  selectedEmotionButton === index ? "selected-button" : ""
+                }`}
+                key={index}
+                onClick={() => handleClickEmotion(index)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="flex-hor">
+            {genderButtons.map((label, index) => (
+              <button
+                className={`option-button ${
+                  selectedGenderButton === index ? "selected-button" : ""
+                }`}
+                key={index}
+                onClick={() => handleClickGender(index)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="start-duration-stuff">
+        <div className="column-flex">
+          <div className="up-down-container">
+            <h4>Start Time</h4>
 
-      <div className="slider-value">Current Value: {sliderValue}</div>
+            <input
+              type="number"
+              step="0.1" // Allows floating-point numbers up to two decimal places
+              onChange={(e) => {
+                const newOnlyStartTime = parseFloat(e.target.value) || 0;
+                setOnlyStartTime(newOnlyStartTime);
+                setStartTime(newOnlyStartTime, sliderValue);
+              }}
+              value={onlyStartTime}
+            />
+          </div>
+          <div className="up-down-container">
+            <div>
+              <span>{min}</span>
+              <input
+                type="range"
+                min={min}
+                max={max}
+                step={step}
+                value={sliderValue}
+                onChange={(e) => {
+                  const newSliderValue = parseFloat(e.target.value);
+                  setSliderValue(newSliderValue);
+                  setStartTime(onlyStartTime, newSliderValue);
+                }}
+                className="neutral-slider"
+              />
+              <span>{max}</span>
+            </div>
 
-      <h4>Duration</h4>
-      <input
-        type="number"
-        step="0.1" // Allows floating-point numbers up to two decimal places
-        onChange={(e) => setDuration(parseFloat(e.target.value) || 0)} // Use parseFloat
-        value={getDuration()}
-      />
-
-      <button onClick={deleteSelf}>Delete</button>
-      <button
-        className={isPlaying ? "playing" : ""}
-        onClick={() => playForDuration(getStartTime(), getDuration())}
-      >
-        Play
-      </button>
-      {/* Display the current total start time */}
-      <h4>Total Start Time</h4>
-      <div>{formatTime(getStartTime())}</div>
+            <div className="current-value">
+              <div className="slider-value">Offset: {sliderValue}</div>
+            </div>
+            <button
+              className="option-button"
+              onClick={() => {
+                setSliderValue(0);
+                setStartTime(onlyStartTime, 0);
+              }}
+            >
+              Reset
+            </button>
+            <div className="up-down-container">
+              <h4>Actual Start Time</h4>
+              <div>{formatTime(getStartTime())}</div>
+            </div>
+          </div>
+        </div>
+        <div className="column-flex" style={{ alignItems: "center" }}>
+          <div className="up-down-container">
+            <h4>Duration</h4>
+            <input
+              type="number"
+              step="0.1" // Allows floating-point numbers up to two decimal places
+              onChange={(e) => setDuration(parseFloat(e.target.value) || 0)} // Use parseFloat
+              value={getDuration()}
+            />
+          </div>
+          <div style={{ paddingTop: "20px" }}>
+            <button
+              className={`option-button ${isPlaying ? "playing" : ""}`}
+              onClick={() => playForDuration(getStartTime(), getDuration())}
+              style={{ width: "150px", height: "150px", fontSize: "50px" }}
+            >
+              Play
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

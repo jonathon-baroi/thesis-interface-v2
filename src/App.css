@@ -3,6 +3,8 @@
   padding: 0; /* Remove default padding */
   box-sizing: border-box; /* Include padding and border in width/height */
   border-radius: 3px;
+  color: rgb(219, 219, 219);
+  text-align: center;
 }
 
 .whole-timestamp {
@@ -12,17 +14,18 @@
 }
 
 body {
-  background-color: #3a3a3a;
+  background-color: #0c1116;
   height: 100vh;
   overflow: hidden;
 }
 /* Timestamp Bar  */
 
 .timestampbar {
-  background-color: #f0ebd8;
+  background-color: #17222c;
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  padding: 20px;
+
 
 }
 
@@ -30,13 +33,15 @@ body {
   list-style: none;
   
 }
+.padding-right {
+  padding-left: 10px;
+}
 
 .timestamp-container{
   
-  background-color: #e0e0e0;
-  padding: 1em;
+  background-color: #1A1A1D;
   overflow: scroll;
-  height: 100vh;
+  height: 100%;
 
 }
 
@@ -46,20 +51,19 @@ body {
   
 }
 .actions {
-  background-color: #a09a83;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .plus {
   display: flex;
-  justify-content: center;
+
 }
 
 .youtube-controls {
   display: flex;
-  justify-content: center;
+
 }
 .default-field {
   display: flex;
@@ -67,19 +71,81 @@ body {
 }
 .default-parameters {
   display: flex;
+  
 }
 
 .selected-button {
-  background-color: rgb(151, 18, 18);
-  color: rgb(255, 255, 255);
+
+}
+
+.play-color{
+  background-color: greenyellow;
+}
+
+.delete-color{
+  background-color: rgb(146, 0, 0);
+}
+
+.option-button {
+  background-color: #435B66;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 30px;
+  line-height: 30px;
+  outline: 0;
+  overflow: hidden;
+  width: 70px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  
+  
+  
+  vertical-align: top;
+  white-space: nowrap;
+  
+  
+  border: 0;
 }
 
 
-
+.option-button:hover{
+  background-color: #3f2b2b;
+}
+.selected-button  {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #610000, #ff0000);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 30px;
+  line-height: 30px;
+  outline: 0;
+  overflow: hidden;
+  width: 70px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  
+  z-index: 9;
+  border: 0;
+}
 
 .divider {
   width: 20px;
-  background-color: #0a0a0a;
+  background-color: darkslategrey;
   height: 100vh;
   margin-left: 10px;
   margin-right: 10px;
@@ -88,4 +154,68 @@ body {
 
 .divider.divider:active{
   background-color: #707070;
+}
+
+.more-width {
+  width: 100px;
+}
+
+
+/* CSS */
+.play-button {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #A76F6F, #3f2b2b);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 44px;
+  line-height: 44px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  
+  z-index: 9;
+  border: 0;
+}
+
+.play-button:hover {
+  background: #EAB2A0;
+}
+input {
+  
+  padding: 12px 20px;
+  font-size: 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: #333;
+  width: 200px;
+  height: 10px;
+}
+
+input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.5);
+}
+
+input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.flex-end {
+  justify-content: space-between;    
 }
