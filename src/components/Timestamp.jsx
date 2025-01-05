@@ -38,6 +38,9 @@ const Timestamp = ({ index, timestamps, setTimestamps, playerRef }) => {
 
   const playForDuration = (startTime, duration) => {
     if (playerRef.current) {
+      const playbackRate = playerRef.current.getPlaybackRate();
+      const adjustedDuration = duration / playbackRate;
+
       playerRef.current.seekTo(startTime, true);
       playerRef.current.playVideo();
       setIsPlaying(true);
@@ -46,7 +49,7 @@ const Timestamp = ({ index, timestamps, setTimestamps, playerRef }) => {
           playerRef.current.pauseVideo();
           setIsPlaying(false);
         }
-      }, duration * 1000);
+      }, adjustedDuration * 1000);
     }
   };
 
